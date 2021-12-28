@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trsections",
+  "info": {
+    "name": "trsection",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "denumire": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "descriere": {
+      "type": "string"
+    },
+    "cod": {
+      "type": "integer",
+      "required": true,
+      "unique": true
+    },
+    "trdepartment": {
+      "via": "trsections",
+      "model": "trdepartment"
+    },
+    "users_permissions_user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "trjobs": {
+      "via": "trsection",
+      "collection": "trjob"
+    }
+  }
+}

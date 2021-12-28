@@ -1,0 +1,97 @@
+.inputFormat {
+    height:20px;
+    font-size:12px;
+    margin-bottom:1px;
+    margin-top:1px;
+    padding:5px !important;
+    }
+
+.mediaFormat {
+    height:40px;
+    font-size:12px;
+    margin-bottom:1px;
+    margin-top:1px;
+    padding:5px !important;
+    }
+    
+.inputListFormat{
+    height:20px !important;
+    font-size:12px;
+    margin-bottom:0px;
+    margin-top:0px;
+    padding:0px !important;  
+}
+
+.inputCheckFormat{
+    height:20px !important;
+   
+    margin:0px 0px !important;
+    width:auto;
+    padding:0px !important;  
+}
+
+.divFormat {
+    margin-bottom:1px;
+    margin-top:2px;
+    width:auto;
+}
+
+.divImageFormat {
+    margin-bottom:1px;
+    margin-top:2px;
+    width:100%;
+}
+.tab-coupon {
+    margin-bottom: 10px !important;
+}
+
+.nav-link-mobile {
+    font-size: 10px;
+}
+
+.nav-link-desktop {
+    font-size: 12px;
+}
+
+
+
+.nav-tabs{
+    display:inline-flex;
+  }
+
+.buttonFormat{
+    margin-right:20px;
+    font-size: 12px;
+}
+
+
+
+.error{
+    color:red;
+    font-size: 10px;
+}
+
+.loading{
+    color:grey;
+    font-size: 10px;
+}
+
+
+.box-input-file {
+    width: 100px;
+    height: 100px;
+    background-color: #dddddd;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.upload {
+    position: absolute;
+    width: 70px;
+    left: 0;
+    right: 0;
+    opacity: 0;
+  }

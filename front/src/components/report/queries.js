@@ -1,0 +1,62 @@
+import { gql } from '@apollo/client';
+export const ORDER_CONTENT = gql`  
+ query( $NumarBon:Int!, $Produs:String!){
+    trorders(where:{NumarBon:$NumarBon, Produs:$Produs}){
+      id
+      idDevco
+      NumarBon
+      Data
+      DenumireFirma
+      Finalizata
+      Produs
+      trordercontents{
+        NrCrt
+        id
+        Rand1
+        Supliment1
+        Rand2
+        Supliment2
+        Rand3
+        Supliment3
+        Rand4
+        Supliment4
+        Rand5
+        Supliment5
+        Produs
+        tritemoperations{
+          id
+          utilizator
+          datamodificare
+          final
+          Finalizat
+        	trjob{
+            id
+            ordine
+            denumire
+            finala
+          }
+          salariat1{
+            id
+            nume
+          }
+          salariat2{
+            id
+            nume
+          }
+          salariat3{
+            id
+            nume
+          }
+          salariat4{
+            id
+            nume
+          }
+          salariat5{
+            id
+            nume
+          }
+      	}
+      }
+  	} 
+}
+`;

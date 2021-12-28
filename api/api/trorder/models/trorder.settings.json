@@ -1,0 +1,79 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trorders",
+  "info": {
+    "name": "trorder",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "NumarBon": {
+      "type": "integer",
+      "required": true
+    },
+    "Data": {
+      "type": "date",
+      "required": true
+    },
+    "idFirma": {
+      "type": "integer",
+      "required": true
+    },
+    "DenumireFirma": {
+      "type": "string",
+      "required": true
+    },
+    "Optionale": {
+      "type": "string"
+    },
+    "Obs": {
+      "type": "string"
+    },
+    "ValoareFacturata": {
+      "type": "decimal"
+    },
+    "ComandaClient": {
+      "type": "integer"
+    },
+    "Finalizata": {
+      "type": "integer",
+      "default": 0
+    },
+    "Produs": {
+      "type": "string",
+      "required": true
+    },
+    "idCursa": {
+      "type": "integer",
+      "required": true
+    },
+    "DataCursa": {
+      "type": "date",
+      "required": true
+    },
+    "DenumireCursa": {
+      "type": "string",
+      "required": true
+    },
+    "idRuta": {
+      "type": "integer",
+      "required": true
+    },
+    "DenumireRuta": {
+      "type": "string",
+      "required": true
+    },
+    "trordercontents": {
+      "via": "trorder",
+      "collection": "trordercontent"
+    },
+    "idDevco": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trordercontents",
+  "info": {
+    "name": "trordercontent",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "idDevco": {
+      "type": "integer",
+      "required": true
+    },
+    "id_docDevco": {
+      "type": "integer",
+      "required": true
+    },
+    "Rand1": {
+      "type": "string"
+    },
+    "Supliment1": {
+      "type": "string"
+    },
+    "Rand2": {
+      "type": "string"
+    },
+    "Supliment2": {
+      "type": "string"
+    },
+    "Rand3": {
+      "type": "string"
+    },
+    "Supliment3": {
+      "type": "string"
+    },
+    "Rand4": {
+      "type": "string"
+    },
+    "Supliment4": {
+      "type": "string"
+    },
+    "Rand5": {
+      "type": "string"
+    },
+    "Supliment5": {
+      "type": "string"
+    },
+    "Produs": {
+      "type": "string",
+      "required": true
+    },
+    "trorder": {
+      "via": "trordercontents",
+      "model": "trorder"
+    },
+    "tritemoperations": {
+      "via": "trordercontent",
+      "collection": "tritemoperation"
+    },
+    "NrCrt": {
+      "type": "integer"
+    }
+  }
+}

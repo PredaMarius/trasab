@@ -1,0 +1,47 @@
+.butonFormat{
+    margin-left:20px;
+    font-size: 10px;
+    height: 100%;
+    width: 70%;
+    padding:5px;
+}
+
+.butonDiv{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-right:15px;
+    padding-left:15px;
+    height: 100%;
+    width: 100%;
+}
+
+
+.containerX{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.jurnal { 
+    margin-top:5px;
+    display:flex;
+    justify-content: center;
+     
+}
+
+.butonjurnal{
+    width: auto;
+    height: 10px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 10px;
+    
+    height:50px;
+    width: 95%;
+    
+}
+

@@ -1,0 +1,12 @@
+In Chrome:
+Open Chrome, type chrome://flags in the address bar, then press “Enter“.
+Type the word “secure” in the search box at the top to make it easier to find the setting we need.
+Scroll down to the “Insecure origins treated as secure” si de setat Enabled :
+-adresa de acces a serverului strapi (de ex. https://softdivisionasus.local)
+-adresa aplicatiei(de ex. http://192.168.2.143:3000
+
+Atentie e necesara accesarea adresei serverului strapi si la atentionarea browserului cum ca ar fi o adresa periculoasa se da advance si permite rularea.
+
+-asta face ca browserul sa nu mai dezactiveze accesul la serverul strapi pentru ca nu emite prin Https.
+
+To disable the invalid SSL warning function in Google Chrome, copy chrome://flags, paste into the address bar, and then press Enter. You can also type it by hand. In the next screen, search for #allow-insecure-localhost. The "Allow invalid certificates for resources loaded from localhost" option will show up.

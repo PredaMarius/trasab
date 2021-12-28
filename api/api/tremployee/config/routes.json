@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/tremployees",
+      "handler": "tremployee.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tremployees/count",
+      "handler": "tremployee.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tremployees/:id",
+      "handler": "tremployee.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/tremployees",
+      "handler": "tremployee.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/tremployees/:id",
+      "handler": "tremployee.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tremployees/:id",
+      "handler": "tremployee.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

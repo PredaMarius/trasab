@@ -1,0 +1,69 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tritemoperations",
+  "info": {
+    "name": "tritemoperation",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "id_docDevco": {
+      "type": "integer"
+    },
+    "idReperDevco": {
+      "type": "integer",
+      "required": true
+    },
+    "trordercontent": {
+      "via": "tritemoperations",
+      "model": "trordercontent"
+    },
+    "Finalizat": {
+      "type": "boolean"
+    },
+    "utilizator": {
+      "type": "string"
+    },
+    "datamodificare": {
+      "type": "datetime"
+    },
+    "salariat1": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "salariat2": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "salariat3": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "salariat4": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "salariat5": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "trjob": {
+      "model": "trjob"
+    },
+    "produs": {
+      "type": "string"
+    },
+    "trteam": {
+      "model": "trteam"
+    },
+    "final": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

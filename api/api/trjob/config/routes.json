@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/trjobs",
+      "handler": "trjob.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/trjobs/count",
+      "handler": "trjob.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/trjobs/:id",
+      "handler": "trjob.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/trjobs",
+      "handler": "trjob.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/trjobs/:id",
+      "handler": "trjob.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/trjobs/:id",
+      "handler": "trjob.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
