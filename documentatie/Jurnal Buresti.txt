@@ -1,0 +1,5 @@
+1.Program Trasab
+2.Program devize cu export din Devco a unui deviz centralizat catre programul de stocuri.
+Codificare nomenclatoare Devco si Stocuri pentru legatura.
+3.Program agenti cu jurnal.
+4. 
