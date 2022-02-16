@@ -20,6 +20,16 @@ query($idComanda:ID!){
       count
     }
   }
+  finaletoate:tritemoperationsConnection(where:{trordercontent:{trorder:$idComanda}, final:1}) {
+        aggregate {
+          count
+        }
+      }
+  finalefinalizate:tritemoperationsConnection(where:{Finalizat:1, trordercontent:{trorder:$idComanda},final:1}) {
+    aggregate {
+      count
+    }
+  }
   trorder(id:$idComanda) {
     Finalizata
   } 
@@ -189,6 +199,30 @@ mutation (
     trorder{
       id
       Finalizata
+    }
+  }
+}
+`;
+
+
+export const STATUS_ID =gql`
+query($idComanda:Int, $idOperatie:Int) {
+  trstatuses(where:{trorder:{id:$idComanda}, trjob:{id:$idOperatie}})
+  {
+    id
+    NrRepereBifate
+  }
+}
+`;
+
+export const STATUS_UPDATE =gql`
+mutation (
+  $id:ID!
+  $NrRepereBifate:Int,
+) {
+  updateTrstatus(input:{where:{id:$id}, data:{ NrRepereBifate:$NrRepereBifate}}){
+    trstatus{
+      id
     }
   }
 }

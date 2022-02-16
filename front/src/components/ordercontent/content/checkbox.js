@@ -2,18 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery, useLazyQuery} from '@apollo/client';
 import { ToastContainer, toast } from 'react-toastify';
 import {dataFormatRO} from '../../../functii/functii';
-import {UPDATE_MUTATION, OPERATIONS_COUNT_ALL, UPDATE_STATUS_ORDER} from '../queries';
+import {UPDATE_MUTATION, OPERATIONS_COUNT_ALL, UPDATE_STATUS_ORDER, STATUS_ID, STATUS_UPDATE} from '../queries';
 import 'react-toastify/dist/ReactToastify.css';
 import './style.css';
 import { X } from 'react-feather';
 
 
 
-export const CheckBox=({itempost, echipa, currentUser, bifareTotala, idComanda}) =>{
-
-
+export const CheckBox=({itempost, echipa, currentUser, bifareTotala, idComanda, status, updateStatus, setStatus}) =>{
+//--------------------------------------------------------------------------
+//functie update status comanda in trorder
     const [updateStatusComanda]=useMutation(UPDATE_STATUS_ORDER, 
         {
+            fetchPolicy: "no-cache",
             onCompleted: (rasp) => { console.log("update status")},
             onError: errorUpdateStatus => {
                 toast.error(`Eroare schimbare status comanda! ${errorUpdateStatus.message}`, {
@@ -25,15 +26,25 @@ export const CheckBox=({itempost, echipa, currentUser, bifareTotala, idComanda})
         }
     );
 
-
+//--------------------------------------------------------------------------
+// functie de extragere a datelor din tritemoperation privind bifarea post item-urilor aferente comenzii curente
+// rasp.toate.aggregate.count=== rasp.finalizate.aggregate.count => nr total item-uri comanda === nr total imte-uri bifate
+//rasp.finaletoate.aggregate.count===rasp.finalefinalizate.aggregate.count => nr total intem-uri cu statut de operatie finala in reteta === nr total intem-uri cu statut de operatie finala in reteta, bifate
+// Semnificatie valoare camp  in trorder : Finalizata: 0 - comanda nefinalizata , Finalizata:1 -comanda ce are bifate intem-urile finale dar are item-uri intermediare nebifate; Finalizata:2 -finalizata total
     const [datav]=useLazyQuery(OPERATIONS_COUNT_ALL,
             {
+                fetchPolicy: "no-cache",
                 onCompleted: (rasp) => {
-                    if (rasp.toate.aggregate.count=== rasp.finalizate.aggregate.count && rasp.trorder.Finalizata<2){
+                    if (rasp.toate.aggregate.count=== rasp.finalizate.aggregate.count){
                        updateStatusComanda({ variables:{idComanda:idComanda, Finalizata:2}})
+                       console.log("comanda finalizata total(2)");
                     }else{
-                        if(itempost.final===1 && rasp.toate.aggregate.count!== rasp.finalizate.aggregate.count){
-                            updateStatusComanda({ variables:{idComanda:idComanda, Finalizata:1}}) 
+                        if(rasp.finaletoate.aggregate.count===rasp.finalefinalizate.aggregate.count){
+                            updateStatusComanda({ variables:{idComanda:idComanda, Finalizata:1}})
+                            console.log("comanda finalizata partial(1)"); 
+                        }else{
+                            updateStatusComanda({ variables:{idComanda:idComanda, Finalizata:0}})
+                            console.log("comanda nefinalizata(0)"); 
                         }
                     }
                 },
@@ -42,11 +53,14 @@ export const CheckBox=({itempost, echipa, currentUser, bifareTotala, idComanda})
                         toastId: 'EroareSalvareXX',
                         autoClose:10000,
                         hideProgressBar:true
-                        });
+                    });
                 }
+            
             }
         );
 
+    //--------------------------------------------------------------------------
+    // declarare si incarcare initiala : inputValues cu datele din tritemoperations 
     const [inputValues, setInputValues]=useState({
         id:JSON.parse(itempost.id), 
         finalizat:itempost.Finalizat,
@@ -64,23 +78,33 @@ export const CheckBox=({itempost, echipa, currentUser, bifareTotala, idComanda})
         numesalariat5:itempost.salariat5? itempost.salariat5.nume : "",
         numetrteam:itempost.trteam?itempost.trteam.denumire:"",
     });
+
+    //--------------------------------------------------------------------------
+    // variabila ce ajuta la detectarea daca componenta Checkbox este la primul render;
     
     const [primaIncarcare, setPrimaIncarcare]=useState(true);
+
+     //--------------------------------------------------------------------------
+    // functia de update la bifarea sau debifarea unui item
       
     const [update]=useMutation(UPDATE_MUTATION, 
         {
             onCompleted: (rasp) => {
-                console.log(rasp,"update");
-                datav({
-                    variables:{idComanda:idComanda}, 
-                    fetchPolicy: "network-only",   // Used for first execution
-                    //nextFetchPolicy: "network-only", // Used for subsequent executions
-                  });
+                console.log("update modificare bifare", rasp);
+                //..............................update status in trorder
+                datav({ 
+                    variables:{idComanda:idComanda, x:Date()}, 
+                    fetchPolicy: "no-cache",
+                });
+                //.................................update status in trstatus
+                updateStatus({ variables:{id:status.id, NrRepereBifate:rasp.updateTritemoperation.tritemoperation.Finalizat?status.NrRepereBifate+1:status.NrRepereBifate-1}})
+                setStatus([{...status, NrRepereBifate:rasp.updateTritemoperation.tritemoperation.Finalizat?status.NrRepereBifate+1:status.NrRepereBifate-1}])
+                //............................................
                 toast.success('Salvare cu succes!', {
                     toastId: 'SuccesSalvare',
                     autoClose:1500,
                     hideProgressBar:true
-                    });
+                });
             },
             onError: errorUpdate => {
                 toast.error(`Eroare salvare! ${errorUpdate.message}`, {
@@ -92,13 +116,18 @@ export const CheckBox=({itempost, echipa, currentUser, bifareTotala, idComanda})
         }
     );
 
+    //---------------------------------------------------------------------------------------------------------------------------------------
+    //declansare update item la bifare in cazul in care inputVlaues sunt modificate, mai putin la incarcarea initala a componentei checkbox.
     useEffect(() => { 
         if(primaIncarcare===false){
-            update({ variables:inputValues});  
+            update({ variables:inputValues
+            });  
         } 
         setPrimaIncarcare(false)
     },[inputValues]);
 
+     //---------------------------------------------------------------------------------------------------------------------------------------
+    //declansare update total la actionarea butonului de bifare totala. Modificarea inputValues va declansa si rularea codului useEffect de mai sus
     useEffect(() => { 
         if(bifareTotala===true){
             if (inputValues.finalizat!==true){
@@ -124,7 +153,8 @@ export const CheckBox=({itempost, echipa, currentUser, bifareTotala, idComanda})
         }   
     },[bifareTotala]);
     
-    
+ //---------------------------------------------------------------------------------------------------------------------------------------
+//functia atasata operatiei de bifare/debifare checkbox => modifica inputValues -> ce declanseaza primul useEffect
     const handleChange=(e)=>{       
         if (inputValues.finalizat!==true){
             setInputValues({ 
@@ -173,7 +203,7 @@ export const CheckBox=({itempost, echipa, currentUser, bifareTotala, idComanda})
         }
     }; 
 
-    
+    //---------------------------------------------------------------------------------------------------------------------------------------
   
     return(
         <div className="center">

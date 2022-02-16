@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trstatuses",
+  "info": {
+    "name": "trstatus",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "idDevcoComanda": {
+      "type": "integer"
+    },
+    "trjob": {
+      "model": "trjob"
+    },
+    "NrRepere": {
+      "type": "integer",
+      "default": 0
+    },
+    "NrRepereBifate": {
+      "type": "integer"
+    },
+    "OperatieFinala": {
+      "type": "integer",
+      "default": 0
+    },
+    "trorder": {
+      "model": "trorder",
+      "via": "trstatuses"
+    },
+    "Produs": {
+      "type": "string"
+    }
+  }
+}

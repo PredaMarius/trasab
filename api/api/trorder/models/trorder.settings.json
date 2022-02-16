@@ -74,6 +74,14 @@
     },
     "idDevco": {
       "type": "integer"
+    },
+    "trstatuses": {
+      "via": "trorder",
+      "collection": "trstatus"
+    },
+    "tritemoperations": {
+      "via": "trorder",
+      "collection": "tritemoperation"
     }
   }
 }

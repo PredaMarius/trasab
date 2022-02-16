@@ -13,6 +13,7 @@ import List_jobs from './components/jobs/index';
 import List_teams from './components/teams/index';
 
 import List_orders from './components/orders/index';
+import List_ordersverification from './components/ordersverification/index';
 import List_ordercontent from './components/ordercontent/index';
 import Fisa from './components/report/index';
 
@@ -98,6 +99,11 @@ class Root extends Component {
                                 <Route path={`${process.env.PUBLIC_URL}/comenzi/:idPost`} 
                                 render={(props) => (
                                   <List_orders {...props} currentUser={getUser()} />
+                                )} />
+
+                                <Route path={`${process.env.PUBLIC_URL}/comenziverificare/:idPost`} 
+                                render={(props) => (
+                                  <List_ordersverification {...props} currentUser={getUser()} />
                                 )} />
 
                                 <Route path={`${process.env.PUBLIC_URL}/continutcomanda/:idComanda`} 

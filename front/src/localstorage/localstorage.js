@@ -2,6 +2,9 @@ import LZString from 'lz-string';
 
 const TOKEN_KEY='jwt';
 const USER='user';
+const RUTA='ruta';
+const CURSA='cursa';
+const CAUTA='cauta';
 
 export const setToken=(value, tokenKey=TOKEN_KEY)=>{
     if(localStorage){
@@ -39,6 +42,44 @@ export const getUser= (user=USER)=>{
     return null;
 }
 
+//-----------------------------------------------------
+export const setLSRuta=(value,ruta=RUTA)=>{
+    if(localStorage){
+        localStorage.setItem(ruta,(JSON.stringify(value)))
+    }
+}
 
+export const getLSRuta=(ruta=RUTA)=>{
+    if(localStorage && localStorage.getItem(ruta)){
+        return JSON.parse(localStorage.getItem(ruta));
+    }
+    return null;
+}
 
+//-----------------------------------------------------
+export const setLSCursa=(value,cursa=CURSA)=>{
+    if(localStorage){
+        localStorage.setItem(cursa,(JSON.stringify(value)))
+    }
+}
 
+export const getLSCursa=(cursa=CURSA)=>{
+    if(localStorage && localStorage.getItem(cursa)){
+        return JSON.parse(localStorage.getItem(cursa));
+    }
+    return null;
+}
+
+//-----------------------------------------------------
+export const setLSCauta=(value,cauta=CAUTA)=>{
+    if(localStorage){
+        localStorage.setItem(cauta,(JSON.stringify(value)))
+    }
+}
+
+export const getLSCauta=(cauta=CAUTA)=>{
+    if(localStorage && localStorage.getItem(cauta)){
+        return JSON.parse(localStorage.getItem(cauta));
+    }
+    return null;
+}

@@ -64,6 +64,10 @@
     "final": {
       "type": "integer",
       "default": 0
+    },
+    "trorder": {
+      "model": "trorder",
+      "via": "tritemoperations"
     }
   }
 }

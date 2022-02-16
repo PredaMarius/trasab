@@ -21,9 +21,9 @@ export class Header extends Component {
      
     componentDidMount() {
         
-        if(this.state.isMobile){
-            this.openCloseSidebar()
-        } 
+       // if(this.state.isMobile){
+           this.openCloseSidebar()
+        //} 
     }
 
     toggle() {

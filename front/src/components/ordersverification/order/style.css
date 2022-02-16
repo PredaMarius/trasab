@@ -39,7 +39,7 @@
 .container1 {
     display: flex;
     flex-direction: row;
-    justify-content:flex-start;
+    justify-content:space-between;
     align-items:baseline;
     column-gap: 5px;
 }
@@ -54,11 +54,6 @@
     width: 150px;
 }
 
-.butonCodBareSiBifare{
-    background-color:#170f86; 
-    color:aliceblue;
-    width: 150px;
-}
 .rosu{
     color:red !important;
 }

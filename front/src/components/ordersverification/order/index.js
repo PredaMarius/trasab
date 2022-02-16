@@ -2,7 +2,6 @@ import React, {useEffect, useState, Fragment, useRef} from 'react';
 import  Modal from 'react-responsive-modal';
 import BarcodeScannerComponent from "react-webcam-barcode-scanner";
 import { ToastContainer, toast } from 'react-toastify';
-import useSound from 'use-sound';
 
 import ReactDataGrid from '@inovua/reactdatagrid-community';
 import '@inovua/reactdatagrid-community/index.css';
@@ -15,16 +14,14 @@ import IconButton from '@mui/material/IconButton';
 import CachedIcon from '@mui/icons-material/Cached';
 import { useQuery } from '@apollo/client';
 import {QuickSearchToolbar,escapeRegExp } from '../../common/quicksearch/index';
-import { ORDERS_LIST, QUERY_NAME } from './queries';
+import { ORDERS_LIST, QUERY_NAME, RUTE_LIST, CURSE_LIST } from './queries';
 import {dataFormatRO} from '../../../functii/functii';
-import barcode from '../../../assets/sounds/barcode.mp3';
+import {getLSRuta, setLSRuta, getLSCursa, setLSCursa} from '../../../localstorage/localstorage'
 import './style.css';
 
 
 
-
 export const List=({ echipa, currentUser}) => {
-  const [play] = useSound(barcode);
   const gridStyle = { minHeight: 450 };
   const history = useHistory();
   const [openModal, setOpenModal] = useState(false);  
@@ -40,9 +37,12 @@ export const List=({ echipa, currentUser}) => {
     onRender: (cellProps, {data}) => {cellProps.style.color = data.trstatuses[0].NrRepereBifate===data.trstatuses[0].NrRepere? 'lightgreen': data.trstatuses[0].NrRepereBifate<data.trstatuses[0].NrRepere && data.trstatuses[0].NrRepereBifate>0?'orange':'inherit'}
   
   },
-  
   ];     
   const [idComanda, setIdComanda] = useState(0);
+  const [rute, setRute] = useState([]);
+  const [ruta, setRuta] = useState(getLSRuta());
+  const [curse, setCurse] = useState([]);
+  const [cursa, setCursa] = useState(getLSCursa());
   const [filtruFinalizate,setFiltruFinalizate]=useState(true);
   const [initialRender, setInitialRender] = useState(true);
   const [searchText, setSearchText] = useState('');
@@ -76,10 +76,22 @@ export const List=({ echipa, currentUser}) => {
 
 
   const { data, loading, error, refetch } = useQuery(ORDERS_LIST,{
-    variables:{idjob:echipa.trjob.id, finalizata:(filtruFinalizate?2:3), produs:echipa.trjob.trsection.trdepartment.cod, trjob:echipa.trjob.id}, 
+    variables:{idjob:echipa.trjob.id, finalizata:(filtruFinalizate?2:3), produs:echipa.trjob.trsection.trdepartment.cod,trjob:echipa.trjob.id, cursa:cursa}, 
     fetchPolicy: "network-only",
     //notifyOnNetworkStatusChange: true,
     onCompleted:()=>setRows(data && data[QUERY_NAME]?data[QUERY_NAME]:[])
+  });
+
+  const { data:ruteData, loading:ruteLoading, error:ruteError } = useQuery(RUTE_LIST,{ 
+    fetchPolicy: "network-only",
+    //notifyOnNetworkStatusChange: true,
+    onCompleted:()=>setRute(ruteData && ruteData.trcursesConnection.groupBy.Ruta?ruteData.trcursesConnection.groupBy.Ruta:[])
+  });
+
+  const { data:curseData, loading:curseLoading, error:curseError } = useQuery(CURSE_LIST,{ 
+    variables:{ ruta:ruta}, 
+    fetchPolicy: "network-only",
+    onCompleted:()=>setCurse(curseData && curseData.trcurses ? curseData.trcurses:[])
   });
 
   const [rows, setRows] = useState(data && data[QUERY_NAME]?data[QUERY_NAME]:[]);
@@ -103,6 +115,7 @@ export const List=({ echipa, currentUser}) => {
     setOpenModal(true);
     setTimeout(() => onTimeExpire(), 20000);
   };
+
   const onOpenModalScanareSiBifare = () => {
     setTipscanare('scanarebifare')
     setOpenModal(true);
@@ -114,11 +127,9 @@ export const List=({ echipa, currentUser}) => {
   const onUpdateScanner = (err, result) => {
     if (result) {
      if(data && rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0]){
-      play();
       setTipscanare('scanare');
       onCloseModal();
       setIdComanda(rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0].id);
-      
      }else{
       setTipscanare('scanare');
       onCloseModal();
@@ -134,11 +145,9 @@ export const List=({ echipa, currentUser}) => {
   const onUpdateScannerBifeaza = (err, result) => {
     if (result) {
      if(data && rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0]){
-      play();
       setTipscanare('scanarebifare');
       onCloseModal();
       setIdComanda(rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0].id);
-      
      }else{
       setTipscanare('scanare');
       onCloseModal();
@@ -158,7 +167,6 @@ export const List=({ echipa, currentUser}) => {
   };
 
   useEffect(() => {
-    
     if (!initialRender) {
       history.push({
         pathname: `${process.env.PUBLIC_URL}/continutcomanda/:${idComanda}`,
@@ -169,8 +177,13 @@ export const List=({ echipa, currentUser}) => {
     }
   },[idComanda]);
 
-
-  const requestSearch = (searchValue) => {
+  useEffect(() => {
+    setLSRuta(ruta)
+    setLSCursa(cursa)
+  },[ruta, cursa]);
+  
+  
+const requestSearch = (searchValue) => {
     setSearchText(searchValue);
     const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
     const filteredRows = data && data[QUERY_NAME] && data[QUERY_NAME].filter((row) => {
@@ -180,17 +193,44 @@ export const List=({ echipa, currentUser}) => {
     });
     setRows(filteredRows);
   };
-   
+
+  const handleChangeRuta=(e)=>{
+      setRuta(e.target.value);
+      setCursa("")
+  }; 
+
+  const handleChangeCursa=(e)=>{
+    setCursa(e.target.value);
+  }; 
   
-  if (loading) return (<ClipLoader color={'blue'} loading={loading} css={{position: 'absolute', left: '50%', top: '50%'}}  size={50} />);
-  if (error) return (<h6>Loading error:{error.message}</h6>);
+
+  
+  if (loading ) return (<ClipLoader color={'blue'} loading={loading} css={{position: 'absolute', left: '50%', top: '50%'}}  size={50} />);
+  if (error ) return (<h6>Loading error:{error.message}</h6>);
 
   return (
     <Fragment>
-    
+      <div className='row align-self-center text-center' style={{ width:"100%",marginTop:"5px", paddingRight:"5px"}} >
+        <label style={{marginLeft:"5px", marginRight:"2px",width:"80px", fontSize:"20px"}}>Ruta:</label>
+          <select name="ruta" id="ruta-select" style={{width:"70px", fontSize:"16px"}} value={ruta} onChange={handleChangeRuta} >
+            <option value=""></option>
+            {rute.map(ruta=>
+              <option key={ruta.key} value={ruta.key}>{ruta.key}</option>
+            )}  
+          </select> 
+          <label style={{marginLeft:"5px", marginRight:"2px",width:"70px", fontSize:"20px"}}>Cursa:</label>
+          <select name="cursa" id="cursa-select" style={{width:"240px", fontSize:"16px"}} value={cursa} onChange={handleChangeCursa} >
+            <option value=""></option>
+            {curse.map(cursa=>
+              <option  key={cursa.id} value={cursa.NrCursa}>{cursa.NrCursa + (cursa.blocat==="DA"?" (X)":"")}</option>
+            )}  
+          </select>    
+        </div>
+     
        {/*-----------------------------------CAMP CAUTARE/FILTRU/REFRESH----------------------------------------*/}
        <QuickSearchToolbar value={searchText} onChange={(event) => requestSearch(event.target.value)} clearSearch={()=>requestSearch('')}/>
       <div className='container1'>
+         
           <IconButton onClick={() => {refetch();setSearchText('')}} color="primary" component="div">
             <CachedIcon />
           </IconButton>
@@ -237,9 +277,8 @@ export const List=({ echipa, currentUser}) => {
           </div>
           <div>
             {`🟥 - operatie finala bifata dar cu operatii intermediare nebifate.`}
-          </div>
-      </div>
-      {/*<div >
+        </div>
+        {/*<div >
           Theme:{' '}
           <ComboBox
             style={{ width: 120}}
@@ -252,17 +291,17 @@ export const List=({ echipa, currentUser}) => {
             value={theme}
             onChange={setTheme}
           />
-      </div>*/}
+        </div>*/}
+      </div>
       {/*-----------------------------------MODAL SCANARE----------------------------------------*/}
       <Modal open={openModal} onClose={onCloseModal} center>
       <div>{tipscanare==='scanare'?"":"SCANARE SI BIFARE REPERE"}</div>
-          <BarcodeScannerComponent
-              width={350}
-              height={350}
-              onUpdate={(err, result) => tipscanare==='scanare'?onUpdateScanner(err, result):onUpdateScannerBifeaza(err, result)}
-            />
+        <BarcodeScannerComponent
+            width={350}
+            height={350}
+            onUpdate={(err, result) => tipscanare==='scanare'?onUpdateScanner(err, result):onUpdateScannerBifeaza(err, result)}
+          />
       </Modal>
-
        {/*-----------------------------------MESAJE DE EROARE/ATENTIONARE-------------------------*/}
       <ToastContainer
         position="top-center"

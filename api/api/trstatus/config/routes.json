@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/trstatuses",
+      "handler": "trstatus.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/trstatuses/count",
+      "handler": "trstatus.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/trstatuses/:id",
+      "handler": "trstatus.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/trstatuses",
+      "handler": "trstatus.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/trstatuses/:id",
+      "handler": "trstatus.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/trstatuses/:id",
+      "handler": "trstatus.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
