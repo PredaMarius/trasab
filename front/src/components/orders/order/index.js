@@ -30,17 +30,15 @@ export const List=({ echipa, currentUser}) => {
   const [openModal, setOpenModal] = useState(false);  
   const columns = [
     { name:'id', header:'ID', defaultFlex:1,sortable: false, defaultVisible:false,  },
-    { name: 'NumarBon', header: 'Numar', defaultFlex: 2, sortable: false, defaultVisible:true },
+    { name: 'NumarBon', header: 'Numar', defaultFlex: 2, sortable: false, defaultVisible:true,  render:({data})=>data.Serviciu + data.NumarBon},
     { name: 'Data', header: 'Data', defaultFlex: 2, defaultVisible:true, render: ({ value }) => dataFormatRO(value).substring(0, 10)},
     { name: 'DenumireFirma', header: 'Client', flex: 4,sortable: false, defaultVisible:true },
     { name: 'Finalizata', header: 'Finalizata', flex: 1,sortable: false, defaultVisible:false },
     { name: 'DenumireCursa', header: 'Cursa', flex: 3,sortable: false, defaultVisible:false },
     { id: 'stare', header: 'Rep.Bif.', defaultFlex: 2, 
-    render: ({ data }) => data.trstatuses[0].NrRepereBifate + '/' + data.trstatuses[0].NrRepere +  (data.trstatuses[0].NrRepereBifate===data.trstatuses[0].NrRepere?" ✅ ":"" )+ (data.Finalizata===2?"👍":"") + (data.trstatuses[0].NrRepereBifate<data.trstatuses[0].NrRepere && data.trstatuses[0].NrRepereBifate>0?" ⛏ ":"" ),
-    onRender: (cellProps, {data}) => {cellProps.style.color = data.trstatuses[0].NrRepereBifate===data.trstatuses[0].NrRepere? 'lightgreen': data.trstatuses[0].NrRepereBifate<data.trstatuses[0].NrRepere && data.trstatuses[0].NrRepereBifate>0?'orange':'inherit'}
-  
-  },
-  
+    render: ({ data }) => data.trstatuses[0] && (data.trstatuses[0].NrRepereBifate + '/' + data.trstatuses[0].NrRepere +  (data.trstatuses[0].NrRepereBifate===data.trstatuses[0].NrRepere?" ✅ ":"" )+ (data.Finalizata===2?"👍":"") + (data.trstatuses[0].NrRepereBifate<data.trstatuses[0].NrRepere && data.trstatuses[0].NrRepereBifate>0?" ⛏ ":"") ),
+    onRender: (cellProps, {data}) => {cellProps.style.color = data.trstatuses[0] && (data.trstatuses[0].NrRepereBifate===data.trstatuses[0].NrRepere? 'lightgreen': data.trstatuses[0].NrRepereBifate<data.trstatuses[0].NrRepere && data.trstatuses[0].NrRepereBifate>0?'orange':'inherit')}
+  }
   ];     
   const [idComanda, setIdComanda] = useState(0);
   const [filtruFinalizate,setFiltruFinalizate]=useState(true);
@@ -78,7 +76,7 @@ export const List=({ echipa, currentUser}) => {
   const { data, loading, error, refetch } = useQuery(ORDERS_LIST,{
     variables:{idjob:echipa.trjob.id, finalizata:(filtruFinalizate?2:3), produs:echipa.trjob.trsection.trdepartment.cod, trjob:echipa.trjob.id}, 
     fetchPolicy: "network-only",
-    //notifyOnNetworkStatusChange: true,
+    notifyOnNetworkStatusChange: true,
     onCompleted:()=>setRows(data && data[QUERY_NAME]?data[QUERY_NAME]:[])
   });
 

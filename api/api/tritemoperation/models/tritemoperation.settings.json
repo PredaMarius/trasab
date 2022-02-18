@@ -66,8 +66,11 @@
       "default": 0
     },
     "trorder": {
-      "model": "trorder",
-      "via": "tritemoperations"
+      "via": "tritemoperations",
+      "model": "trorder"
+    },
+    "Serviciu": {
+      "type": "string"
     }
   }
 }

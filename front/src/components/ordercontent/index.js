@@ -73,7 +73,7 @@ export const OrderContent= props =>{
         if(tipscanare==='scanarebifare'){
             setBifareTotala(true);
             setTimeout(()=>
-            history.push( echipa.trjob.denumire.includes('VERIFICARE')?
+            history.push( echipa.trjob.denumire.includes('FINALA')?
             {pathname:`${process.env.PUBLIC_URL}/comenziverificare/${echipa.trjob.id}`, state:{ echipa: echipa , currentUser:currentUser} }
             :{pathname:`${process.env.PUBLIC_URL}/comenzi/${echipa.trjob.id}`, state:{ echipa: echipa , currentUser:currentUser} }
             )

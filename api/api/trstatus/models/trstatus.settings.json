@@ -23,17 +23,21 @@
       "default": 0
     },
     "NrRepereBifate": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     },
     "OperatieFinala": {
       "type": "integer",
       "default": 0
     },
     "trorder": {
-      "model": "trorder",
-      "via": "trstatuses"
+      "via": "trstatuses",
+      "model": "trorder"
     },
     "Produs": {
+      "type": "string"
+    },
+    "Serviciu": {
       "type": "string"
     }
   }

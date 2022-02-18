@@ -14,7 +14,7 @@ export const PostComenzi=({echipa, index,  currentUser}) =>{
         <div  key={echipa.id} className="card o-hidden widget-cards"  sx={{ width: '100%', backgroundColor: colors[index],'&:hover, &:focus': {backgroundColor: colors[index] }}}>
             <Link
                 to={
-                    echipa.trjob.denumire.includes('VERIFICARE')?
+                    echipa.trjob.denumire.includes('FINALA')?
                     {pathname:`${process.env.PUBLIC_URL}/comenziverificare/${echipa.trjob.id}`, state:{ echipa: echipa , currentUser:currentUser} }
                     :{pathname:`${process.env.PUBLIC_URL}/comenzi/${echipa.trjob.id}`, state:{ echipa: echipa , currentUser:currentUser} }
                     

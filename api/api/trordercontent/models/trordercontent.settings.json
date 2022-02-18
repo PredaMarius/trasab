@@ -64,6 +64,9 @@
     },
     "NrCrt": {
       "type": "integer"
+    },
+    "Serviciu": {
+      "type": "string"
     }
   }
 }

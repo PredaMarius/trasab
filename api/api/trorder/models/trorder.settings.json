@@ -82,6 +82,9 @@
     "tritemoperations": {
       "via": "trorder",
       "collection": "tritemoperation"
+    },
+    "Serviciu": {
+      "type": "string"
     }
   }
 }
