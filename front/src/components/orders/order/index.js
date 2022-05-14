@@ -1,12 +1,10 @@
 import React, {useEffect, useState, Fragment, useRef} from 'react';
-// import  Modal from 'react-responsive-modal';
-// import BarcodeScannerComponent from "react-webcam-barcode-scanner";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 
 import { ToastContainer, toast } from 'react-toastify';
-import useSound from 'use-sound';
+
 
 import ReactDataGrid from '@inovua/reactdatagrid-community';
 import '@inovua/reactdatagrid-community/index.css';
@@ -20,14 +18,12 @@ import { useQuery } from '@apollo/client';
 import { ORDERS_LIST, QUERY_NAME } from './queries';
 import {dataFormatRO} from '../../../functii/functii';
 import {setSTNrBonuri, getSTNrBonuri} from '../../../localstorage/sessionstorage';
-import barcode from '../../../assets/sounds/barcode.mp3';
 import './style.css';
 
 
 
 
 export const List=({ echipa, currentUser}) => {
-  const [play] = useSound(barcode);
   const gridStyle = { minHeight: 450 };
   const history = useHistory();
   const [openModal, setOpenModal] = useState(false);
@@ -47,9 +43,7 @@ export const List=({ echipa, currentUser}) => {
   }
   ];     
   const [idComanda, setIdComanda] = useState(0);
-  // const [filtruFinalizate,setFiltruFinalizate]=useState(true);
   const [initialRender, setInitialRender] = useState(true);
-  // const [searchText, setSearchText] = useState('');
   const [theme, setTheme] = useState('default-dark');
   const [tipscanare, setTipscanare]=useState('scanare');
   
@@ -87,70 +81,7 @@ export const List=({ echipa, currentUser}) => {
   const openModalRef = useRef(openModal);// necesar deoarece in cadrul setTimeOut valoarea openModal nu este cea curenta
   openModalRef.current = openModal;
 
-  // const onTimeExpire =()=>{
-  //     if(openModalRef.current){
-  //       setOpenModal(false);
-  //       toast.warning(`Nu s-a putut citi codul de bare in timpul alocat(20 sec).`, {
-  //         toastId: 'EroareCitireCodBare',
-  //         autoClose:5000,
-  //         hideProgressBar:true
-  //       });
-  //   }
-  // }
-
-  // const onOpenModal = () => {
-  //   setTipscanare('scanare');
-  //   setOpenModal(true);
-  //   setTimeout(() => onTimeExpire(), 20000);
-  // };
-  // const onOpenModalScanareSiBifare = () => {
-  //   setTipscanare('scanarebifare')
-  //   setOpenModal(true);
-  //   setTimeout(() => onTimeExpire(), 20000);
-  // };
-
-  // const onCloseModal = () => setOpenModal(false);
-
-  // const onUpdateScanner = (err, result) => {
-  //   if (result) {
-  //    if(data && rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0]){
-  //     play();
-  //     setTipscanare('scanare');
-  //     onCloseModal();
-  //     setIdComanda(rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0].id);
-      
-  //    }else{
-  //     setTipscanare('scanare');
-  //     onCloseModal();
-  //     toast.warning(`Nu am gasit nici o comanda ${filtruFinalizate?"NEFINALIZATA":""} in lista cu numarul: ${result.text}.`, {
-  //       toastId: 'EroareCitireCodBare',
-  //       autoClose:5000,
-  //       hideProgressBar:true
-  //     });
-  //    }
-  //   }
-  // };
-
-  // const onUpdateScannerBifeaza = (err, result) => {
-  //   if (result) {
-  //    if(data && rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0]){
-  //     play();
-  //     setTipscanare('scanarebifare');
-  //     onCloseModal();
-  //     setIdComanda(rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0].id);
-      
-  //    }else{
-  //     setTipscanare('scanare');
-  //     onCloseModal();
-  //     toast.warning(`Nu am gasit nici o comanda ${filtruFinalizate?"NEFINALIZATA":""} in lista cu numarul: ${result.text}.`, {
-  //       toastId: 'EroareCitireCodBare',
-  //       autoClose:5000,
-  //       hideProgressBar:true
-  //     });
-  //    }
-  //   }
-  // };
-
+  
   
   const handleListRowSelection = (e) => {
     setTipscanare('scanare');
@@ -188,8 +119,7 @@ const handleCauta=()=>{
     <div style={{marginTop:"5px" }}>
     
        {/*-----------------------------------CAMP CAUTARE/FILTRU/REFRESH----------------------------------------*/}
-      {/**<QuickSearchToolbar value={searchText} onChange={(event) => requestSearch(event.target.value)} clearSearch={()=>requestSearch('')}/>**/}
-     
+          
       <form className="row" style={{marginTop:"100px", marginLeft:"5px"}} onSubmit={handleCauta}>
         <TextField size='small' label="Numar comanda" type="search"  name="cauta" autoFocus style={{width:"200px"}} onChange={handleChangeCauta} value={cauta}/>
         <Button style={{marginLeft:"5px"}} color="primary" variant="contained">Cauta</Button>
@@ -220,11 +150,7 @@ const handleCauta=()=>{
           theme={theme}
         />        
         </div> 
-       {/**-----------------------------------BUTON SCANARE----------------------------------------
-      <div className='container1 margineTop' style={{ marginBottom: 20 }}>
-       <button className="butonCodBare" onClick={onOpenModal}>Scaneaza</button>
-      </div>**/}
-
+      
       <div className='margineTop'>
           <div>
             Legenda:
@@ -242,30 +168,7 @@ const handleCauta=()=>{
             {`🟥 - operatie finala bifata dar cu operatii intermediare nebifate.`}
           </div>
       </div>
-      {/*<div >
-          Theme:{' '}
-          <ComboBox
-            style={{ width: 120}}
-            inlineFlex
-            collapseOnSelect
-            clearIcon={false}
-            searchable={false}
-            changeValueOnNavigation
-            dataSource={themeDataSource}
-            value={theme}
-            onChange={setTheme}
-          />
-      </div>*/}
-      {/**-----------------------------------MODAL SCANARE----------------------------------------
-      <Modal open={openModal} onClose={onCloseModal} center>
-      <div>{tipscanare==='scanare'?"":"SCANARE SI BIFARE REPERE"}</div>
-          <BarcodeScannerComponent
-              width={350}
-              height={350}
-              onUpdate={(err, result) => tipscanare==='scanare'?onUpdateScanner(err, result):onUpdateScannerBifeaza(err, result)}
-            />
-      </Modal>**/}
-
+     
        {/*-----------------------------------MESAJE DE EROARE/ATENTIONARE-------------------------*/}
       <ToastContainer
         position="top-center"
