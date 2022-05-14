@@ -110,12 +110,4 @@
     background: transparent !important;
 }
 
-.containerTop{
-    display: flex;
-    flex-direction: row;
-    justify-content:space-between;
-    align-items:baseline;
-    column-gap: 5px;
-    padding-top: 5px;
-}
 

@@ -1,12 +1,15 @@
 import React, {useEffect, useState, Fragment, useRef} from 'react';
-import  Modal from 'react-responsive-modal';
-import BarcodeScannerComponent from "react-webcam-barcode-scanner";
+// import  Modal from 'react-responsive-modal';
+// import BarcodeScannerComponent from "react-webcam-barcode-scanner";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
+
 import { ToastContainer, toast } from 'react-toastify';
 import useSound from 'use-sound';
 
 import ReactDataGrid from '@inovua/reactdatagrid-community';
 import '@inovua/reactdatagrid-community/index.css';
-import ComboBox from '@inovua/reactdatagrid-community/packages/ComboBox';
 import '@inovua/reactdatagrid-community/theme/default-dark.css'
 
 import ClipLoader from "react-spinners/ClipLoader";
@@ -14,9 +17,9 @@ import { useHistory } from "react-router-dom";
 import IconButton from '@mui/material/IconButton';
 import CachedIcon from '@mui/icons-material/Cached';
 import { useQuery } from '@apollo/client';
-import {QuickSearchToolbar,escapeRegExp } from '../../common/quicksearch/index';
 import { ORDERS_LIST, QUERY_NAME } from './queries';
 import {dataFormatRO} from '../../../functii/functii';
+import {setSTNrBonuri, getSTNrBonuri} from '../../../localstorage/sessionstorage';
 import barcode from '../../../assets/sounds/barcode.mp3';
 import './style.css';
 
@@ -27,7 +30,10 @@ export const List=({ echipa, currentUser}) => {
   const [play] = useSound(barcode);
   const gridStyle = { minHeight: 450 };
   const history = useHistory();
-  const [openModal, setOpenModal] = useState(false);  
+  const [openModal, setOpenModal] = useState(false);
+  const [cauta, setCauta] = useState("");
+  const [numarBonuri, setNumarBonuri] = useState(getSTNrBonuri()?getSTNrBonuri():[0]);
+
   const columns = [
     { name:'id', header:'ID', defaultFlex:1,sortable: false, defaultVisible:false,  },
     { name: 'NumarBon', header: 'Numar', defaultFlex: 2, sortable: false, defaultVisible:true,  render:({data})=>data.Serviciu + data.NumarBon},
@@ -41,9 +47,9 @@ export const List=({ echipa, currentUser}) => {
   }
   ];     
   const [idComanda, setIdComanda] = useState(0);
-  const [filtruFinalizate,setFiltruFinalizate]=useState(true);
+  // const [filtruFinalizate,setFiltruFinalizate]=useState(true);
   const [initialRender, setInitialRender] = useState(true);
-  const [searchText, setSearchText] = useState('');
+  // const [searchText, setSearchText] = useState('');
   const [theme, setTheme] = useState('default-dark');
   const [tipscanare, setTipscanare]=useState('scanare');
   
@@ -62,19 +68,15 @@ export const List=({ echipa, currentUser}) => {
     autoHide: false,
     alwaysShowTrack: true
   });
-
-  const themeDataSource = [
-    { id: 'default-dark', label: 'Dark theme' },
-    { id: 'default-light', label: 'Light theme' }
-  ]
-
-  const handleChangeFiltruFinalizate=(e)=>{       
-      setFiltruFinalizate(!filtruFinalizate)
-  };
+  
+  const handleChangeCauta=(e)=>{
+    const { value } = e.target;
+    setCauta(value);
+}; 
 
 
   const { data, loading, error, refetch } = useQuery(ORDERS_LIST,{
-    variables:{idjob:echipa.trjob.id, finalizata:(filtruFinalizate?2:3), produs:echipa.trjob.trsection.trdepartment.cod, trjob:echipa.trjob.id}, 
+    variables:{numarBon:numarBonuri, idjob:echipa.trjob.id, produs:echipa.trjob.trsection.trdepartment.cod, trjob:echipa.trjob.id}, 
     fetchPolicy: "network-only",
     notifyOnNetworkStatusChange: true,
     onCompleted:()=>setRows(data && data[QUERY_NAME]?data[QUERY_NAME]:[])
@@ -85,69 +87,69 @@ export const List=({ echipa, currentUser}) => {
   const openModalRef = useRef(openModal);// necesar deoarece in cadrul setTimeOut valoarea openModal nu este cea curenta
   openModalRef.current = openModal;
 
-  const onTimeExpire =()=>{
-      if(openModalRef.current){
-        setOpenModal(false);
-        toast.warning(`Nu s-a putut citi codul de bare in timpul alocat(20 sec).`, {
-          toastId: 'EroareCitireCodBare',
-          autoClose:5000,
-          hideProgressBar:true
-        });
-    }
-  }
+  // const onTimeExpire =()=>{
+  //     if(openModalRef.current){
+  //       setOpenModal(false);
+  //       toast.warning(`Nu s-a putut citi codul de bare in timpul alocat(20 sec).`, {
+  //         toastId: 'EroareCitireCodBare',
+  //         autoClose:5000,
+  //         hideProgressBar:true
+  //       });
+  //   }
+  // }
 
-  const onOpenModal = () => {
-    setTipscanare('scanare');
-    setOpenModal(true);
-    setTimeout(() => onTimeExpire(), 20000);
-  };
-  const onOpenModalScanareSiBifare = () => {
-    setTipscanare('scanarebifare')
-    setOpenModal(true);
-    setTimeout(() => onTimeExpire(), 20000);
-  };
+  // const onOpenModal = () => {
+  //   setTipscanare('scanare');
+  //   setOpenModal(true);
+  //   setTimeout(() => onTimeExpire(), 20000);
+  // };
+  // const onOpenModalScanareSiBifare = () => {
+  //   setTipscanare('scanarebifare')
+  //   setOpenModal(true);
+  //   setTimeout(() => onTimeExpire(), 20000);
+  // };
 
-  const onCloseModal = () => setOpenModal(false);
+  // const onCloseModal = () => setOpenModal(false);
 
-  const onUpdateScanner = (err, result) => {
-    if (result) {
-     if(data && rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0]){
-      play();
-      setTipscanare('scanare');
-      onCloseModal();
-      setIdComanda(rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0].id);
+  // const onUpdateScanner = (err, result) => {
+  //   if (result) {
+  //    if(data && rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0]){
+  //     play();
+  //     setTipscanare('scanare');
+  //     onCloseModal();
+  //     setIdComanda(rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0].id);
       
-     }else{
-      setTipscanare('scanare');
-      onCloseModal();
-      toast.warning(`Nu am gasit nici o comanda ${filtruFinalizate?"NEFINALIZATA":""} in lista cu numarul: ${result.text}.`, {
-        toastId: 'EroareCitireCodBare',
-        autoClose:5000,
-        hideProgressBar:true
-      });
-     }
-    }
-  };
+  //    }else{
+  //     setTipscanare('scanare');
+  //     onCloseModal();
+  //     toast.warning(`Nu am gasit nici o comanda ${filtruFinalizate?"NEFINALIZATA":""} in lista cu numarul: ${result.text}.`, {
+  //       toastId: 'EroareCitireCodBare',
+  //       autoClose:5000,
+  //       hideProgressBar:true
+  //     });
+  //    }
+  //   }
+  // };
 
-  const onUpdateScannerBifeaza = (err, result) => {
-    if (result) {
-     if(data && rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0]){
-      play();
-      setTipscanare('scanarebifare');
-      onCloseModal();
-      setIdComanda(rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0].id);
+  // const onUpdateScannerBifeaza = (err, result) => {
+  //   if (result) {
+  //    if(data && rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0]){
+  //     play();
+  //     setTipscanare('scanarebifare');
+  //     onCloseModal();
+  //     setIdComanda(rows.filter(comanda=>comanda.NumarBon.toString() === result.text)[0].id);
       
-     }else{
-      setTipscanare('scanare');
-      onCloseModal();
-      toast.warning(`Nu am gasit nici o comanda ${filtruFinalizate?"NEFINALIZATA":""} in lista cu numarul: ${result.text}.`, {
-        toastId: 'EroareCitireCodBare',
-        autoClose:5000,
-        hideProgressBar:true
-      });
-     }
-    }
-  };
+  //    }else{
+  //     setTipscanare('scanare');
+  //     onCloseModal();
+  //     toast.warning(`Nu am gasit nici o comanda ${filtruFinalizate?"NEFINALIZATA":""} in lista cu numarul: ${result.text}.`, {
+  //       toastId: 'EroareCitireCodBare',
+  //       autoClose:5000,
+  //       hideProgressBar:true
+  //     });
+  //    }
+  //   }
+  // };
 
   
   const handleListRowSelection = (e) => {
@@ -155,8 +157,7 @@ export const List=({ echipa, currentUser}) => {
     setIdComanda(e.data.id);
   };
 
-  useEffect(() => {
-    
+  useEffect(() => {   
     if (!initialRender) {
       history.push({
         pathname: `${process.env.PUBLIC_URL}/continutcomanda/:${idComanda}`,
@@ -167,40 +168,44 @@ export const List=({ echipa, currentUser}) => {
     }
   },[idComanda]);
 
+  useEffect(()=>{
+    setSTNrBonuri(numarBonuri);
+  },[numarBonuri])
 
-  const requestSearch = (searchValue) => {
-    setSearchText(searchValue);
-    const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
-    const filteredRows = data && data[QUERY_NAME] && data[QUERY_NAME].filter((row) => {
-      return Object.keys(row).some((field) => {
-        return searchRegex.test(row[field]);
-      });
-    });
-    setRows(filteredRows);
-  };
+
+  
+const handleCauta=()=>{
+  setNumarBonuri([...numarBonuri, cauta?JSON.parse(cauta):0])
+  refetch()
+}
+  
    
   
   if (loading) return (<ClipLoader color={'blue'} loading={loading} css={{position: 'absolute', left: '50%', top: '50%'}}  size={50} />);
   if (error) return (<h6>Loading error:{error.message}</h6>);
 
   return (
-    <Fragment>
+    <div style={{marginTop:"5px" }}>
     
        {/*-----------------------------------CAMP CAUTARE/FILTRU/REFRESH----------------------------------------*/}
-       <QuickSearchToolbar value={searchText} onChange={(event) => requestSearch(event.target.value)} clearSearch={()=>requestSearch('')}/>
-      <div className='container1'>
-          <IconButton onClick={() => {refetch();setSearchText('')}} color="primary" component="div">
+      {/**<QuickSearchToolbar value={searchText} onChange={(event) => requestSearch(event.target.value)} clearSearch={()=>requestSearch('')}/>**/}
+     
+      <form className="row" style={{marginTop:"100px", marginLeft:"5px"}} onSubmit={handleCauta}>
+        <TextField size='small' label="Numar comanda" type="search"  name="cauta" autoFocus style={{width:"200px"}} onChange={handleChangeCauta} value={cauta}/>
+        <Button style={{marginLeft:"5px"}} color="primary" variant="contained">Cauta</Button>
+      </form>
+      
+      <div className='container3'>
+        <div className='labelfiltru'>Goleste tabel:</div>
+          <IconButton onClick={()=>setNumarBonuri([0])} color="primary" component="div">
             <CachedIcon />
           </IconButton>
-        
-          <div className='labelfiltru'>Nefinalizate:</div>
-          <input type="checkbox" className="filtruNefinalizate" name={'filtrunefinalizate'} value={filtruFinalizate} checked={filtruFinalizate} onChange={handleChangeFiltruFinalizate} />
       </div>
        {/*-----------------------------------DATAGRID----------------------------------------*/}
        <div style={{ marginTop: 5, marginBottom: 5 }}>
      
      </div>
-      <div style={{ height: '600', width: '100%' }} >      
+      <div style={{ height: '700', width: '100%' }} >      
         <ReactDataGrid
           idProperty="id"
           selected={idComanda}
@@ -215,11 +220,11 @@ export const List=({ echipa, currentUser}) => {
           theme={theme}
         />        
         </div> 
-       {/*-----------------------------------BUTON SCANARE----------------------------------------*/}
+       {/**-----------------------------------BUTON SCANARE----------------------------------------
       <div className='container1 margineTop' style={{ marginBottom: 20 }}>
-        <button className="butonCodBareSiBifare" onClick={onOpenModalScanareSiBifare}>Scaneaza si bifeaza</button>
-        <button className="butonCodBare" onClick={onOpenModal}>Scaneaza</button>
-      </div>
+       <button className="butonCodBare" onClick={onOpenModal}>Scaneaza</button>
+      </div>**/}
+
       <div className='margineTop'>
           <div>
             Legenda:
@@ -251,7 +256,7 @@ export const List=({ echipa, currentUser}) => {
             onChange={setTheme}
           />
       </div>*/}
-      {/*-----------------------------------MODAL SCANARE----------------------------------------*/}
+      {/**-----------------------------------MODAL SCANARE----------------------------------------
       <Modal open={openModal} onClose={onCloseModal} center>
       <div>{tipscanare==='scanare'?"":"SCANARE SI BIFARE REPERE"}</div>
           <BarcodeScannerComponent
@@ -259,7 +264,7 @@ export const List=({ echipa, currentUser}) => {
               height={350}
               onUpdate={(err, result) => tipscanare==='scanare'?onUpdateScanner(err, result):onUpdateScannerBifeaza(err, result)}
             />
-      </Modal>
+      </Modal>**/}
 
        {/*-----------------------------------MESAJE DE EROARE/ATENTIONARE-------------------------*/}
       <ToastContainer
@@ -274,7 +279,7 @@ export const List=({ echipa, currentUser}) => {
         pauseOnHover
         limit={1}
       /> 
-    </Fragment>       
+    </div>       
   )
 }
 

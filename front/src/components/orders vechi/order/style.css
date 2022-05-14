@@ -1,0 +1,65 @@
+.MuiDataGrid-root {
+    font-size: 12px !important;
+    }
+    
+.MuiDataGrid-colCellWrapper {
+        background: #4c8fba;
+        letter-spacing: 0.2em !important;
+        font-weight: 700 !important;
+        font-size: 14px !important;
+        color:white;
+    }
+
+.MuiTypography-root {
+    font-size: 12px !important;  
+}
+
+.MuiSelect-root{
+    font-size: 12px !important;
+}
+
+.MuiDataGrid-colCellTitle{
+    font-size: 12px !important;
+}
+.MuiDataGrid-footer{
+    min-height: 20px !important;
+    height:20px;
+}
+
+.filtruNefinalizate{
+    width: 17px;
+    height: 17px;
+}
+
+.labelfiltru{
+    font-size: 18px;
+}
+
+
+.container1 {
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    align-items:baseline;
+    column-gap: 5px;
+}
+
+.margineTop{
+    margin-top: 15px;
+}
+
+.butonCodBare{
+    background-color:#770521; 
+    color:aliceblue;
+    width: 150px;
+}
+
+.butonCodBareSiBifare{
+    background-color:#170f86; 
+    color:aliceblue;
+    width: 150px;
+}
+.rosu{
+    color:red !important;
+}
+

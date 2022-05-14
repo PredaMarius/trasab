@@ -5,6 +5,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { ToastContainer, toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useHistory } from "react-router-dom";
 import {dataFormatRO} from '../../functii/functii';
 import { ORDER_CONTENT, STATUS_ID, STATUS_UPDATE} from './queries';
@@ -96,9 +97,12 @@ export const OrderContent= props =>{
                 <h5 className="label">CLIENT: <span className="date">{comanda.trorder.DenumireFirma}</span></h5>
             </div>
             {/*-----------------------------------BUTON BIFARE TOTALA-------------------------*/}
-            <div className='container1 margineTop'>            
-                <div className='labelfiltru'>Bifeaza toate reperele nebifate:</div>
-                <Button onClick={handleChange} color="primary" variant="contained" endIcon={<FactCheckIcon/>}/>
+            <div className='container1 margineTop'>  
+                <Button onClick={() => history.goBack()} color="primary" variant="contained" endIcon={<ArrowBackIcon/>}/>         
+                <div className='container1'>
+                    <div className='labelfiltru'>Bifeaza toate reperele nebifate:</div>
+                    <Button onClick={handleChange} color="primary" variant="contained" endIcon={<FactCheckIcon/>}/>
+                </div>
             </div>
             {/*-----------------------------------LISTA REPERE COMANDA-------------------------*/}
             <List sx={{ width: '100%', background:"#343a40", padding:'10px' }} component="nav">
@@ -107,8 +111,8 @@ export const OrderContent= props =>{
                 )) }  
             </List>
             {/*-----------------------------------BUTON BACK-------------------------*/}
-            <div className='container1 margineTop' style={{ marginBottom: 20 }}>
-                <button onClick={() => history.goBack()}>Back</button>
+            <div className='container3 margineTop' style={{ marginBottom: 20 }}>
+                <Button onClick={() => history.goBack()} color="primary" variant="contained" endIcon={<ArrowBackIcon/>}>Back</Button> 
             </div>
             {/*-----------------------------------MESAJE DE EROARE/ATENTIONARE-------------------------*/}
             <ToastContainer

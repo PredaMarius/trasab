@@ -71,6 +71,24 @@
     },
     "Serviciu": {
       "type": "string"
+    },
+    "NrBon": {
+      "type": "integer"
+    },
+    "DataBon": {
+      "type": "date"
+    },
+    "DenumireFirma": {
+      "type": "string"
+    },
+    "NrCrtReperBon": {
+      "type": "integer"
+    },
+    "DenumireJob": {
+      "type": "string"
+    },
+    "idCursa": {
+      "type": "integer"
     }
   }
 }

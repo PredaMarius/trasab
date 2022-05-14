@@ -6,6 +6,7 @@ const RUTA='ruta';
 const CURSA='cursa';
 const CAUTA='cauta';
 
+
 export const setToken=(value, tokenKey=TOKEN_KEY)=>{
     if(localStorage){
         localStorage.setItem(tokenKey,LZString.compress(JSON.stringify(value)))
@@ -83,3 +84,4 @@ export const getLSCauta=(cauta=CAUTA)=>{
     }
     return null;
 }
+
