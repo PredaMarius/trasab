@@ -64,4 +64,23 @@
 }
 
 
+.InovuaReactDataGrid__row-hover-target{
+    background-color:transparent !important; 
+}
 
+.checkbox{
+    width: 25px;
+    height: 25px;
+}
+
+.center{
+    margin: 0px auto;
+    width:100%;
+}
+
+.white{
+    color:rgb(244, 248, 203);
+}
+.green{
+    color:rgb(42, 235, 17);
+}

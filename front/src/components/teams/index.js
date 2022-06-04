@@ -1,5 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+import Button from '@mui/material/Button';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ClipLoader from "react-spinners/ClipLoader";
 import List from '@mui/material/List';
 import { useQuery } from '@apollo/client';
@@ -10,6 +13,7 @@ import './style.css';
 
     export const Echipe= props =>{
         const location = useLocation();
+        let history = useHistory();
         const { post, currentUser } = location.state
         const { data, loading, error } = useQuery(LIST_TEAMS, {
             variables: {idjob:JSON.parse(post.id)},
@@ -37,6 +41,9 @@ import './style.css';
                 <small>Atentie! Seful de echipa NU face automat si parte din echipa. Trebuie trecut ca membru daca intr-adevar face parte din echipa.</small>
                 <br/>
                 <small>Nota. Acces la setarea echipelor il au : seful de departament, seful de sectie si seful de echipa.</small>
+                <div style={{display: 'flex' ,justifyContent:'flex-end'}}>
+                    <Button onClick={() => history.goBack()} color="primary" variant="contained" endIcon={<ArrowBackIcon/>}>Back</Button>
+                </div>
             </div>
         )
 }

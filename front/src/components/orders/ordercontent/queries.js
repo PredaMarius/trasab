@@ -37,29 +37,10 @@ query($idComanda:ID!){
 `;
 
 
-
-
 export const ORDER_CONTENT = gql`  
-  query( $id:ID!){
+  query( $id:ID!, $trjob:ID){
     trorder(id:$id){
       id
-      idDevco
-      NumarBon
-      Data
-      idFirma
-      DenumireFirma
-      Optionale
-      Obs
-      ValoareFacturata
-      ComandaClient
-      Finalizata
-      Produs
-      idCursa
-      DataCursa
-      DenumireCursa
-      idRuta
-      DenumireRuta
-      Finalizata
       trordercontents{
         NrCrt
         id
@@ -74,40 +55,25 @@ export const ORDER_CONTENT = gql`
         Rand5
         Supliment5
         Produs
-        tritemoperations{
+        tritemoperations(where:{trjob:{id:$trjob}}){
+          DenumireJob
           id
         	trjob{
             id
-            denumire
             finala
           }
           Finalizat
-          salariat1{
-            id
-            nume
-          }
-          salariat2{
-            id
-            nume
-          }
-          salariat3{
-            id
-            nume
-          }
-          salariat4{
-            id
-            nume
-          }
-          salariat5{
-            id
-            nume
-          }
+          numeSalariat1
+          numeSalariat2
+          numeSalariat3
+          numeSalariat4
+          numeSalariat5
           utilizator
           datamodificare
           final
+          denumireEchipa
           trteam{
             id
-            denumire
             iduser{
               id
               nume
@@ -130,7 +96,14 @@ $idsalariat2:ID,
 $idsalariat3:ID,
 $idsalariat4:ID,
 $idsalariat5:ID,
-$trteam:ID
+$trteam:ID,
+$numesalariat1:String,
+$numesalariat2:String,
+$numesalariat3:String,
+$numesalariat4:String,
+$numesalariat5:String
+$numetrteam:String
+
 ) {
   updateTritemoperation(input:{where:{id:$id}, data:{
     Finalizat:$finalizat
@@ -140,7 +113,13 @@ $trteam:ID
     salariat3:$idsalariat3,
     salariat4:$idsalariat4,
     salariat5:$idsalariat5,
-    trteam:$trteam
+    trteam:$trteam,
+    numeSalariat1:$numesalariat1,
+    numeSalariat2:$numesalariat2,
+    numeSalariat3:$numesalariat3,
+    numeSalariat4:$numesalariat4,
+    numeSalariat5:$numesalariat5,
+    denumireEchipa:$numetrteam
   }}){
     tritemoperation{
       id
@@ -149,39 +128,12 @@ $trteam:ID
       utilizator
       datamodificare
       final
-      trteam{ 
-        id
-        denumire
-        iduser{
-          id
-          nume
-        }
-      }
-      salariat1{
-        id
-        nume
-      }
-      salariat2{
-        id 
-        nume
-      }
-      salariat3{
-        id
-        nume
-      }
-      salariat4{
-        id
-        nume
-      }
-      salariat5{
-        id
-        nume
-      }
-      trjob{
-        id
-        denumire
-        finala
-      }
+      denumireEchipa
+      numeSalariat1
+      numeSalariat2
+      numeSalariat3
+      numeSalariat4
+      numeSalariat5
   }
  }
 }
@@ -223,6 +175,8 @@ mutation (
   updateTrstatus(input:{where:{id:$id}, data:{ NrRepereBifate:$NrRepereBifate}}){
     trstatus{
       id
+      NrRepere
+      NrRepereBifate
     }
   }
 }

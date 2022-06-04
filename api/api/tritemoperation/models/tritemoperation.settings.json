@@ -89,6 +89,24 @@
     },
     "idCursa": {
       "type": "integer"
+    },
+    "numeSalariat1": {
+      "type": "string"
+    },
+    "numeSalariat2": {
+      "type": "string"
+    },
+    "numeSalariat3": {
+      "type": "string"
+    },
+    "numeSalariat4": {
+      "type": "string"
+    },
+    "numeSalariat5": {
+      "type": "string"
+    },
+    "denumireEchipa": {
+      "type": "string"
     }
   }
 }

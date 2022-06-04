@@ -77,43 +77,43 @@ class Root extends Component {
                                
                                 <Route path={`${process.env.PUBLIC_URL}/departamente`}  
                                 render={(props) => (
-                                  <List_departments {...props} currentUser={getUser()} />
+                                  <List_departments {...props} currentUser={currentUser} />
                                 )}
                                 />
 
                                 <Route path={`${process.env.PUBLIC_URL}/sectii/:idDepartament`}
                                 render={(props) => (
-                                  <List_sections {...props} currentUser={getUser()} />
+                                  <List_sections {...props} currentUser={currentUser} />
                                 )}/>
                                 
                                 <Route path={`${process.env.PUBLIC_URL}/posturi/:idSectie`} 
                                 render={(props) => (
-                                  <List_jobs {...props} currentUser={getUser()} />
+                                  <List_jobs {...props} currentUser={currentUser} />
                                 )} />
 
                                 <Route path={`${process.env.PUBLIC_URL}/echipe/:idPost`} 
                                 render={(props) => (
-                                  <List_teams {...props} currentUser={getUser()} />
+                                  <List_teams {...props} currentUser={currentUser} />
                                 )} />
 
                                 <Route path={`${process.env.PUBLIC_URL}/comenzi/:idPost`} 
                                 render={(props) => (
-                                  <List_orders {...props} currentUser={getUser()} />
+                                  <List_orders {...props} currentUser={currentUser} />
                                 )} />
 
                                 <Route path={`${process.env.PUBLIC_URL}/comenziverificare/:idPost`} 
                                 render={(props) => (
-                                  <List_ordersverification {...props} currentUser={getUser()} />
+                                  <List_ordersverification {...props} currentUser={currentUser} />
                                 )} />
 
                                 <Route path={`${process.env.PUBLIC_URL}/continutcomanda/:idComanda`} 
                                 render={(props) => (
-                                  <List_ordercontent {...props} currentUser={getUser()} />
+                                  <List_ordercontent {...props} currentUser={currentUser} />
                                 )} />
 
                                 <Route path={`${process.env.PUBLIC_URL}/fisa`} 
                                 render={(props) => (
-                                  <Fisa {...props} currentUser={getUser()} />
+                                  <Fisa {...props} currentUser={currentUser} />
                                 )} />
 
 

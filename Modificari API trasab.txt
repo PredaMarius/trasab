@@ -1,0 +1,5 @@
+de adaugat la tritemoperations :
+numeSalariat1 +2 + 3+ 4 +5
+denumireEchipa 
+
+

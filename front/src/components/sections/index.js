@@ -1,5 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+import Button from '@mui/material/Button';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ClipLoader from "react-spinners/ClipLoader";
 import List from '@mui/material/List';
 import { useQuery } from '@apollo/client';
@@ -10,6 +13,7 @@ import './style.css';
 
     export const Sectii=props=>{
         const location = useLocation();
+        let history = useHistory();
         const { departament, currentUser } = location.state
         const { data, loading, error } = useQuery(LIST_SECTIONS, {variables: {iddepartament:JSON.parse(departament.id)}});
                 
@@ -27,6 +31,9 @@ import './style.css';
                     )) }  
                 </List>
                 <small>Nota. Sefii de departamente/sectii se introduc in Devco.</small>
+                <div style={{display: 'flex' ,justifyContent:'flex-end'}}>
+                    <Button onClick={() => history.goBack()} color="primary" variant="contained" endIcon={<ArrowBackIcon/>}>Back</Button>
+                </div>
             </div>
         )
 }
