@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trjobs",
+  "info": {
+    "name": "trjob",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "denumire": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "descriere": {
+      "type": "string"
+    },
+    "cod": {
+      "type": "integer",
+      "required": true,
+      "unique": true
+    },
+    "ordine": {
+      "type": "integer",
+      "required": true
+    },
+    "finala": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    },
+    "afisarerand": {
+      "type": "integer",
+      "max": 5,
+      "min": 1
+    },
+    "trsection": {
+      "model": "trsection",
+      "via": "trjobs"
+    },
+    "trteams": {
+      "via": "trjob",
+      "collection": "trteam"
+    }
+  }
+}

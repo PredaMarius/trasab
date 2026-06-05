@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/tritemoperations",
+      "handler": "tritemoperation.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tritemoperations/count",
+      "handler": "tritemoperation.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tritemoperations/:id",
+      "handler": "tritemoperation.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/tritemoperations",
+      "handler": "tritemoperation.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/tritemoperations/:id",
+      "handler": "tritemoperation.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tritemoperations/:id",
+      "handler": "tritemoperation.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

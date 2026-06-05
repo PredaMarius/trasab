@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tremployees",
+  "info": {
+    "name": "tremployee",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nume": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "observatii": {
+      "type": "string"
+    },
+    "activ": {
+      "type": "integer"
+    }
+  }
+}

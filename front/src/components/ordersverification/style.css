@@ -1,0 +1,113 @@
+.mobile{
+    padding-left: 5px;
+    padding-right: 5px;
+    height:auto;
+    width: 100%;
+}
+
+.desktop{
+    padding-left: 15px;
+    padding-right: 15px;
+    height:450px;
+    width: 100%;
+}
+
+
+.mobileList{
+    padding: 5px;
+    height:250px;
+    width: 100%;
+}
+
+.desktopList{
+    padding: 15px;
+    height:490px;
+    width: 100%;
+}
+
+.mobileDetail{
+    padding-left: 5px;
+    padding-right: 5px;
+    height:fit-content;
+    min-height: 450px;
+    width: 100%;
+    overflow: scroll;
+}
+
+.desktopDetail{
+    padding: 15px;
+    height:fit-content;
+    min-height: 450px;
+    width: 100%;
+    overflow: scroll;
+}
+
+.accordion{
+ margin-bottom: 5px;
+}
+
+.card-header{
+    letter-spacing: 1.2em;
+    text-transform: uppercase;
+}
+.margine{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left:10px;
+}
+
+.selectboxy{
+    height:20px;
+    font-size:14px !important;
+    background-color: #F8F8F9;
+    border: none;
+    padding-right:10px;
+}
+.blue{
+    color:rgb(145, 141, 141) !important;
+    font-weight: bold !important;
+    background: transparent !important;
+}
+
+.labely {
+    height:30px;
+    font-size:20px !important;
+    margin-bottom:1px;
+    margin-top:1px;
+    padding:5px !important;
+    color:rgb(14, 14, 14);
+    }
+
+.borderx{
+    border-color: rgb(207, 207, 209);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10%;
+}
+
+.pad{
+    padding:5px !important;
+}
+
+.titlul{
+    margin-bottom: 0;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-family: Nunito;
+    color: #000;
+    letter-spacing: 0.03em;
+    line-height: 1.5;
+}
+
+.subtitlul{
+    margin-bottom: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-family: Nunito;
+    color: #000;
+    letter-spacing: 0.03em;
+    line-height: 1.0;
+    background: transparent !important;
+}
+
+

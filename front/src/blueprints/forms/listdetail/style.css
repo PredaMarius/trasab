@@ -1,0 +1,41 @@
+.mobile{
+    padding-left: 5px;
+    padding-right: 5px;
+    height:auto;
+    width: 100%;
+}
+
+.desktop{
+    padding-left: 15px;
+    padding-right: 15px;
+    height:450px;
+    width: 100%;
+}
+
+
+.mobileList{
+    padding: 5px;
+    height:250px;
+    width: 100%;
+}
+
+.desktopList{
+    padding: 15px;
+    height:450px;
+    width: 100%;
+}
+
+.mobileDetail{
+    padding-left: 5px;
+    padding-right: 5px;
+    height:450px;
+    width: 100%;
+    overflow: scroll;
+}
+
+.desktopDetail{
+    padding: 15px;
+    height:450px;
+    width: 100%;
+    overflow: scroll;
+}

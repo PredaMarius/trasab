@@ -1,0 +1,172 @@
+.mobile{
+    padding-left: 5px;
+    padding-right: 5px;
+    height:auto;
+    width: 100%;
+}
+
+.desktop{
+    padding-left: 15px;
+    padding-right: 15px;
+    height:450px;
+    width: 100%;
+}
+
+
+.mobileList{
+    padding: 5px;
+    height:250px;
+    width: 100%;
+}
+
+.desktopList{
+    padding: 15px;
+    height:490px;
+    width: 100%;
+}
+
+.mobileDetail{
+    padding-left: 5px;
+    padding-right: 5px;
+    height:fit-content;
+    min-height: 450px;
+    width: 100%;
+    overflow: scroll;
+}
+
+.desktopDetail{
+    padding: 15px;
+    height:fit-content;
+    min-height: 450px;
+    width: 100%;
+    overflow: scroll;
+}
+
+.accordion{
+ margin-bottom: 5px;
+}
+
+.card-header{
+    letter-spacing: 1.2em;
+    text-transform: uppercase;
+}
+.margine{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.selectbox{
+    width:200px;
+    height:25px;
+}
+
+.center{
+    text-align: center;
+}
+
+.bold{
+    font-weight: bold;
+}
+.blue{
+    color:rgb(145, 141, 141) !important;
+    font-weight: bold !important;
+    background: transparent !important;
+}
+
+.labelx {
+    height:30px;
+    font-size:16px !important;
+    margin-bottom:1px;
+    margin-top:1px;
+    padding:5px !important;
+    color:white;
+    }
+
+.borderx{
+    border-color: rgb(207, 207, 209);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10%;
+}
+
+.pad{
+    padding:5px !important;
+}
+
+.titlul{
+    margin-bottom: 0;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-family: Nunito;
+    color: #000;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+}
+
+.subtitlul{
+    margin-bottom: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-family: Nunito;
+    color: #000;
+    letter-spacing: 0.03em;
+    line-height: 1.0;
+    background: transparent !important;
+}
+
+.nrCrt{
+    color:aliceblue;
+    margin-right: 10px;
+}
+
+.checkbox{
+    width: 45px;
+    height: 45px;
+}
+
+.center{
+    margin: 0px auto;
+    width:100%;
+}
+
+.white{
+    color:rgb(244, 248, 203);
+}
+.green{
+    color:rgb(42, 235, 17);
+}
+
+.reper{
+  font-weight: 'bold';
+  color:'#9ba7b4';
+  margin: '0px auto';
+  width:'100%';
+}
+
+.MuiDivider-light{
+    color:rgb(244, 248, 203);
+}
+
+.devider{
+    background:rgb(214, 214, 211);
+    width: 100%;
+    height: 5px;
+}
+
+.container1 {
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-end;
+    align-items:baseline;
+    column-gap: 5px;
+}
+
+.margineTop{
+    margin-top: 15px;
+}
+
+.butonCodBare{
+    background-color:#770521; 
+    color:aliceblue;
+    width: 150px;
+}

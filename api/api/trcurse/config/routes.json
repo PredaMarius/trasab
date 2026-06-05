@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/trcurses",
+      "handler": "trcurse.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/trcurses/count",
+      "handler": "trcurse.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/trcurses/:id",
+      "handler": "trcurse.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/trcurses",
+      "handler": "trcurse.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/trcurses/:id",
+      "handler": "trcurse.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/trcurses/:id",
+      "handler": "trcurse.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

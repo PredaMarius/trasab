@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trcurses",
+  "info": {
+    "name": "trcurse",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "NrCursa": {
+      "type": "string"
+    },
+    "dataCursa": {
+      "type": "date"
+    },
+    "blocat": {
+      "type": "string"
+    },
+    "Ruta": {
+      "type": "string",
+      "required": true
+    },
+    "idDevco": {
+      "type": "integer",
+      "unique": true
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trteams",
+  "info": {
+    "name": "trteam",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "denumire": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "usermodificare": {
+      "type": "string"
+    },
+    "datamodificare": {
+      "type": "datetime"
+    },
+    "salariat1": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "salariat2": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "salariat3": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "salariat4": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "salariat5": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "iduser": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "trjob": {
+      "model": "trjob",
+      "via": "trteams"
+    }
+  }
+}

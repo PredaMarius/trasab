@@ -1,0 +1,15 @@
+.MuiDataGrid-root {
+    font-size: 12px !important;
+    }
+    
+.MuiDataGrid-colCellWrapper {
+        background: #d3d3d3;
+    }
+
+.MuiTypography-root {
+        font-size: 12px !important;
+    }
+
+.MuiSelect-root{
+ font-size: 12px !important;
+}

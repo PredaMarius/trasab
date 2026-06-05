@@ -1,0 +1,29 @@
+
+.card-header{
+    letter-spacing: 1.2em;
+    text-transform: uppercase;
+}
+.margine{
+    padding-top: 15px;
+}
+
+.borderx{
+    border-color: rgb(207, 207, 209);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10%;
+}
+
+.pad{
+    padding:5px !important;
+}
+
+.titlul{
+    margin-bottom: 0;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-family: Nunito;
+    color: #000;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+}

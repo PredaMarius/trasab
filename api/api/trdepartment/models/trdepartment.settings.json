@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trdepartments",
+  "info": {
+    "name": "trdepartment",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "denumire": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "descriere": {
+      "type": "string"
+    },
+    "trsections": {
+      "via": "trdepartment",
+      "collection": "trsection"
+    },
+    "users_permissions_user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "cod": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
