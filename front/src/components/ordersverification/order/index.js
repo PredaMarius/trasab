@@ -75,24 +75,91 @@ export const List=({ echipa, currentUser}) => {
   };
 
 
-  const { data, loading, error, refetch } = useQuery(ORDERS_LIST,{
-    variables:{idjob:echipa.trjob.id, finalizata:(filtruFinalizate?2:3), produs:echipa.trjob.trsection.trdepartment.cod,trjob:echipa.trjob.id, cursa:cursa}, 
-    fetchPolicy: "network-only",
-    notifyOnNetworkStatusChange: true,
-    onCompleted:()=>setRows(data && data[QUERY_NAME]?data[QUERY_NAME]:[])
-  });
+  // const { data, loading, error, refetch } = useQuery(ORDERS_LIST,{
+  //   variables:{idjob:echipa.trjob.id, finalizata:(filtruFinalizate?2:3), produs:echipa.trjob.trsection.trdepartment.cod,trjob:echipa.trjob.id, cursa:cursa}, 
+  //   fetchPolicy: "network-only",
+  //   notifyOnNetworkStatusChange: true,
+  //   onCompleted:()=>setRows(data && data[QUERY_NAME]?data[QUERY_NAME]:[])
+  // });
 
-  const { data:ruteData, loading:ruteLoading, error:ruteError } = useQuery(RUTE_LIST,{ 
-    fetchPolicy: "network-only",
-    //notifyOnNetworkStatusChange: true,
-    onCompleted:()=>setRute(ruteData && ruteData.trcursesConnection.groupBy.Ruta?ruteData.trcursesConnection.groupBy.Ruta:[])
-  });
+  const { data, loading, error, refetch } = useQuery(ORDERS_LIST, {
+  variables: {
+    idjob: echipa.trjob.id,
+    finalizata: filtruFinalizate ? 2 : 3,
+    produs: echipa.trjob.trsection.trdepartment.cod,
+    trjob: echipa.trjob.id,
+    cursa: cursa
+  },
+  fetchPolicy: "network-only",
+  notifyOnNetworkStatusChange: true,
 
-  const { data:curseData, loading:curseLoading, error:curseError } = useQuery(CURSE_LIST,{ 
-    variables:{ ruta:ruta}, 
-    fetchPolicy: "network-only",
-    onCompleted:()=>setCurse(curseData && curseData.trcurses ? curseData.trcurses:[])
-  });
+  onCompleted: (result) => {
+    console.log("ORDERS_LIST completed:", result);
+    console.log("Cursa selectata:", cursa);
+    console.log("Comenzi:", result?.[QUERY_NAME]);
+
+    setRows(result?.[QUERY_NAME] || []);
+  },
+
+  onError: (error) => {
+    console.error("ORDERS_LIST error:", error);
+  }
+});
+
+  // const { data:ruteData, loading:ruteLoading, error:ruteError } = useQuery(RUTE_LIST,{ 
+  //   fetchPolicy: "network-only",
+  //   //notifyOnNetworkStatusChange: true,
+  //   onCompleted:()=>setRute(ruteData && ruteData.trcursesConnection.groupBy.Ruta?ruteData.trcursesConnection.groupBy.Ruta:[])
+    
+  // });
+  const {
+  data: ruteData,
+  loading: ruteLoading,
+  error: ruteError
+} = useQuery(RUTE_LIST, {
+  fetchPolicy: "network-only",
+  // notifyOnNetworkStatusChange: true,
+
+  onCompleted: (data) => {
+    console.log("RUTE_LIST completed:", data);
+    console.log("Ruta:", data?.trcursesConnection?.groupBy?.Ruta);
+
+    setRute(
+      data?.trcursesConnection?.groupBy?.Ruta
+        ? data.trcursesConnection.groupBy.Ruta
+        : []
+    );
+  },
+
+  onError: (error) => {
+    console.error("RUTE_LIST error:", error);
+  }
+});
+
+  // const { data:curseData, loading:curseLoading, error:curseError } = useQuery(CURSE_LIST,{ 
+  //   variables:{ ruta:ruta}, 
+  //   fetchPolicy: "network-only",
+  //   onCompleted:()=>setCurse(curseData && curseData.trcurses ? curseData.trcurses:[])
+  // });
+  const {
+  data: curseData,
+  loading: curseLoading,
+  error: curseError
+} = useQuery(CURSE_LIST, {
+  variables: { ruta: ruta },
+  fetchPolicy: "network-only",
+
+  onCompleted: (data) => {
+    console.log("CURSE_LIST completed:", data);
+    console.log("trcurses:", data?.trcurses);
+
+    setCurse(data?.trcurses || []);
+  },
+
+  onError: (error) => {
+    console.error("CURSE_LIST error:", error);
+  }
+});
 
   const [rows, setRows] = useState(data && data[QUERY_NAME]?data[QUERY_NAME]:[]);
 

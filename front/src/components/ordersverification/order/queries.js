@@ -38,7 +38,7 @@ export const RUTE_LIST = gql`
 
 export const CURSE_LIST = gql`  
   query( $ruta:String){
-    trcurses(sort: "dataCursa:desc", limit:1000, where:{ Ruta:$ruta }){
+    trcurses(sort: "dataCursa:desc", limit:1000000, where:{ Ruta:$ruta }){
       id
       idDevco
       NrCursa
