@@ -37,7 +37,7 @@ export const Comenzi=(props) =>{
       fetchPolicy: "cache-and-network",
       notifyOnNetworkStatusChange: true,
       onCompleted:(rasp)=>{
-          setRows(data && data[QUERY_NAME]?data[QUERY_NAME]:[]);
+          setRows(rasp && rasp[QUERY_NAME]?rasp[QUERY_NAME]:[]);
           console.log("declansare ORDER_LIST");
           setBif(rasp.trorders[0]?(rasp.trorders[0].trstatuses[0].NrRepereBifate ?rasp.trorders[0].trstatuses[0].NrRepereBifate:0):0)
         }
